@@ -20,7 +20,7 @@ import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Buses;
 public class BusesFacade extends AbstractFacade<Buses> implements BusesFacadeLocal{
 
     @PersistenceContext(unitName = "uesocc.edu.sv.ingenieria_TPI135_RutasBuses_war_1.0-SNAPSHOTPU")
-    public EntityManager em;
+    protected EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
