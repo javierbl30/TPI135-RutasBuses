@@ -49,8 +49,8 @@ public class Paradas implements Serializable {
     private String referencia;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "COORDENADAS", nullable = false, length = 20)
+    @Size(min = 1, max = 50)
+    @Column(name = "COORDENADAS", nullable = false, length = 50)
     private String coordenadas;
     @Basic(optional = false)
     @NotNull

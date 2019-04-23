@@ -10,22 +10,22 @@ import java.util.List;
 /**
  *
  * @author pedrojv
+ * @param <T>
  */
 public interface AbstractFacadeInterface<T>{
     
-    T create(T entity);
+    public void create(T entity);
 
-    T edit(T entity);
+    public void edit(T entity);
 
-    T remove(T entity);
+    public void remove(T entity);
 
-    T find(Object id);
+    public T find(Object id);
 
-    List<T> findAll();
+    public List<T> findAll();
 
-    List<T> findRange(int[] range);
+    public List<T> findRange(int inicio, int tamanio);
 
-    int count();
+    public int count();
     
-    List<T> findByName(String name);
 }

@@ -15,5 +15,5 @@ import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Buses;
  */
 @Local
 public interface BusesFacadeLocal extends AbstractFacadeInterface<Buses>{
-   public Buses create(Buses entity);
+  
 }

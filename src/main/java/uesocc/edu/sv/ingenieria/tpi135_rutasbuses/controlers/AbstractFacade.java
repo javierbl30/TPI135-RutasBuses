@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -30,49 +31,69 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public T create(T entity) {
-       if (entity != null && getEntityManager()!=null) {
-            getEntityManager().persist(entity);
-            return entity;
-        }else{
-            return null;
+    public void create(T entity) {
+       if (entity != null) {
+            EntityManager em = getEntityManager();
+            if (em != null) {
+                em.persist(entity);
+            } else {
+                throw new IllegalStateException("em null");
+            }
+        } else {
+            throw new IllegalArgumentException("entity null");
         }
     }
     
-    public T edit(T entity) {
-        if (entity != null && getEntityManager()!=null) {
-            getEntityManager().merge(entity);
-            return entity;
-        }else{
-            return null;
+    public void edit(T entity) {
+        if (entity != null) {
+            EntityManager em = getEntityManager();
+            if (em != null) {
+                em.merge(entity);
+            } else {
+                throw new IllegalStateException("em null");
+            }
+        } else {
+            throw new IllegalArgumentException("entity null");
         }
     }
 
-    public T remove(T entity) {
-       if (entity!=null && getEntityManager()!=null) {
-            getEntityManager().remove(getEntityManager().merge(entity));
-            return entity;
+    public void remove(T entity) {
+       if(entity != null){
+            EntityManager em = getEntityManager();
+            if (em != null) {
+                em.remove(em.merge(entity));   
+            } else {
+                throw new IllegalStateException("em null");
+            }
         }else{
-            return null;
+            throw new IllegalArgumentException("entity null");
         }
     }
 
     public T find(Object id) {
-     return getEntityManager().find(entityClass, id);
+     
+        EntityManager em = getEntityManager();
+        if (id != null) {
+            if (em != null) {
+                return (T) em.find(entityClass,id);
+            }
+            throw new IllegalStateException("em null");
+        }
+        throw new IllegalArgumentException("id null");
     }
 
     public List<T> findAll() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         return getEntityManager().createQuery(cq).getResultList();
     }
 
-    public List<T> findRange(int[] range) {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+    public List<T> findRange(int inicio, int tamanio) {
+        CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
-        q.setMaxResults(range[1] - range[0] + 1);
-        q.setFirstResult(range[0]);
+        Query q = getEntityManager().createQuery(cq);
+        q.setMaxResults(tamanio);
+        q.setFirstResult(inicio);
         return q.getResultList();
     }
 
@@ -84,16 +105,4 @@ public abstract class AbstractFacade<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
     
-    public List<T> findByName(String name) {
-        if (name != null && getEntityManager() != null) {
-            CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-            CriteriaQuery<T> query = builder.createQuery(entityClass);
-            Root<T> root = query.from(entityClass);
-            Predicate findByName = builder.like(builder.lower(root.<String>get("nombre")), "%" + name.toLowerCase() + "%");
-            query.select(root).where(findByName);
-            return getEntityManager().createQuery(query).getResultList();
-        } else {
-            return Collections.emptyList();
-        }
-    }
 }

@@ -5,6 +5,7 @@
  */
 package uesocc.edu.sv.ingenieria.tpi135_rutasbuses.controlers;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,8 +15,9 @@ import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.RecorridoRutas;
  *
  * @author pedrojv
  */
+@LocalBean
 @Stateless
-public class RecorridoRutasFacade extends AbstractFacade<RecorridoRutas> implements RecorridoRutasFacadeLocal {
+public class RecorridoRutasFacade extends AbstractFacade<RecorridoRutas> {
 
     @PersistenceContext(unitName = "uesocc.edu.sv.ingenieria_TPI135_RutasBuses_war_1.0-SNAPSHOTPU")
     private EntityManager em;
