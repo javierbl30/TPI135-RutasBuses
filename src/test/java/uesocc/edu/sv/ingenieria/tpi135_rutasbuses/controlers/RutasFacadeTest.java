@@ -23,37 +23,38 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Buses;
 import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Horarios;
+import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Rutas;
 
 /**
  *
  * @author pedrojv
  */
-   @RunWith(MockitoJUnitRunner.class)
-   public class BusesFacadeTest {
-   
-    @EJB
-    BusesFacade bfc = new BusesFacade();
+@RunWith(MockitoJUnitRunner.class)
+public class RutasFacadeTest {
+    
+  @EJB  
+  RutasFacade rfc = new RutasFacade();
+  
     /**
-     * Test of horaSalidaBus method, of class BusesFacade.
+     * Test of horaSalidaRuta method, of class RutasFacade.
      */
     @Test
-    public void testHoraSalidaBus() throws Exception {
-        System.out.println("tesHoraSalidaBus");
+    public void testHoraSalidaRuta() throws Exception {
+        System.out.println("tesHoraSalidaRuta");
         EntityManager entityManager = Mockito.mock(EntityManager.class);
-        Assert.assertEquals(Collections.EMPTY_LIST,bfc.horaSalidaBus("AB12-135"));
-        bfc.em = entityManager;
+        Assert.assertEquals(Collections.EMPTY_LIST,rfc.horaSalidaRuta("ACOD01"));
+        rfc.em = entityManager;
         List<Horarios> expResult = new ArrayList<>();
         expResult.add(new Horarios("ACOD01","AB12-135"));
         List<Horarios> salida = new ArrayList<>();
         salida.add(new Horarios("ACOD01","AB12-135"));
         Query query = mock(Query.class);
-        Mockito.when(entityManager.createQuery("SELECT b FROM Buses b JOIN b.horariosList h WHERE h.buses.placaBus = AB12-135")).thenReturn(query);
+        Mockito.when(entityManager.createQuery("SELECT r FROM Rutas r JOIN r.horariosList h WHERE h.rutas.idRuta = ACOD01")).thenReturn(query);
         Mockito.when(query.getResultList()).thenReturn(salida);
-        Assert.assertEquals(expResult,bfc.horaSalidaBus("AB12-135"));
-        Mockito.when(bfc.horaSalidaBus(null)).thenReturn(Collections.EMPTY_LIST);
-        Assert.assertEquals(Collections.EMPTY_LIST,bfc.horaSalidaBus(null));
+        Assert.assertEquals(expResult,rfc.horaSalidaRuta("ACOD01"));
+        Mockito.when(rfc.horaSalidaRuta(null)).thenReturn(Collections.EMPTY_LIST);
+        Assert.assertEquals(Collections.EMPTY_LIST,rfc.horaSalidaRuta(null));
     }
     
 }

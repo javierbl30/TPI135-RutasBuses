@@ -5,10 +5,14 @@
  */
 package uesocc.edu.sv.ingenieria.tpi135_rutasbuses.controlers;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Horarios;
 
 /**
@@ -20,7 +24,7 @@ import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Horarios;
 public class HorariosFacade extends AbstractFacade<Horarios>{
 
     @PersistenceContext(unitName = "uesocc.edu.sv.ingenieria_TPI135_RutasBuses_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
+    protected EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -31,4 +35,5 @@ public class HorariosFacade extends AbstractFacade<Horarios>{
         super(Horarios.class);
     }
     
+
 }

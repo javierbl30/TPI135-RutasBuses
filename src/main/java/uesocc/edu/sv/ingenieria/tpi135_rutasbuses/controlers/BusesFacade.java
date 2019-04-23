@@ -6,11 +6,16 @@
 package uesocc.edu.sv.ingenieria.tpi135_rutasbuses.controlers;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Buses;
+import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Horarios;
 
 /**
  *
@@ -31,5 +36,21 @@ public class BusesFacade extends AbstractFacade<Buses>{
     public BusesFacade() {
         super(Buses.class);
     }
+    
+    public List<Horarios> horaSalidaBus(String placa){
+        List<Horarios> lista = new ArrayList<>();
+        try{
+            if(placa!=null){
+                Query query = em.createQuery("SELECT b FROM Buses b JOIN b.horariosList h WHERE h.buses.placaBus = "+placa);
+                return lista = query.getResultList();
+            }else{
+                return Collections.EMPTY_LIST;
+            }
+        }catch(Exception e){
+                return Collections.EMPTY_LIST;
+        }
+    }
+    
+    
     
 }
