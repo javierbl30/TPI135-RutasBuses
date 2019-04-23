@@ -56,4 +56,22 @@ import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Horarios;
         Assert.assertEquals(Collections.EMPTY_LIST,bfc.horaSalidaBus(null));
     }
     
+    @Test
+    public void testBusesPorRuta() throws Exception {
+        System.out.println("tesBusesPorRuta");
+        EntityManager entityManager = Mockito.mock(EntityManager.class);
+        Assert.assertEquals(Collections.EMPTY_LIST,bfc.busesPorRuta("ACOD01"));
+        bfc.em = entityManager;
+        List<Buses> expResult = new ArrayList<>();
+        expResult.add(new Buses("AB12-135"));
+        List<Buses> salida = new ArrayList<>();
+        salida.add(new Buses("AB12-135"));
+        Query query = mock(Query.class);
+        Mockito.when(entityManager.createQuery("SELECT b FROM Buses b JOIN b.rutasBusesList rb WHERE rb.rutas.idRuta = ACOD01")).thenReturn(query);
+        Mockito.when(query.getResultList()).thenReturn(salida);
+        Assert.assertEquals(expResult,bfc.busesPorRuta("ACOD01"));
+        Mockito.when(bfc.busesPorRuta(null)).thenReturn(Collections.EMPTY_LIST);
+        Assert.assertEquals(Collections.EMPTY_LIST,bfc.busesPorRuta(null));
+    }
+    
 }

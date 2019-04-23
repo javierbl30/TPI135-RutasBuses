@@ -50,4 +50,5 @@ public class RutasFacade extends AbstractFacade<Rutas> {
         }
     }
     
+    
 }

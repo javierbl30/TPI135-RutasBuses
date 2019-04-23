@@ -2,7 +2,17 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="uesocc.edu.sv.ingenieria_TPI135_RutasBuses_war_1.0-SNAPSHOTPU" transaction-type="JTA">
     <jta-data-source>jdbc/rutasbuses_tpi135</jta-data-source>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.Buses</class>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.Empresas</class>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.Horarios</class>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.HorariosPK</class>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.Paradas</class>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.RecorridoRutas</class>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.RecorridoRutasPK</class>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.Rutas</class>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.RutasBuses</class>
+    <class>uesocc.edu.sv.ingeneria.tpi135_rutasbuses.entitys.RutasBusesPK</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
 </persistence>

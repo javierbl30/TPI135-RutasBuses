@@ -51,6 +51,19 @@ public class BusesFacade extends AbstractFacade<Buses>{
         }
     }
     
-    
+     public List<Buses> busesPorRuta(String idRuta){
+        List<Buses> lista = new ArrayList<>();
+        try{
+            if(idRuta!=null){
+                Query query = em.createQuery("SELECT b FROM Buses b JOIN b.rutasBusesList rb WHERE rb.rutas.idRuta = "+idRuta);
+                lista = query.getResultList();
+                return lista;
+            }else{
+                return Collections.EMPTY_LIST;
+            }
+        }catch(Exception e){
+            return Collections.EMPTY_LIST;
+        }
+    }
     
 }
