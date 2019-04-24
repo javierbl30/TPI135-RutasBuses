@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>Paradas</title>
+        </f:facet>
+    </h:head>
+    
+    <h:body>
+        <h:form id="tablaDatos">
+            <p:dataTable id="table"
+                         value="#{frmParadas.lazymodel}" 
+                         var="var"
+                         lazy="true"
+                         paginator="true"
+                         rows="5"
+                         selectionMode="single"
+                         selection="#{frmParadas.registro}"
+                         disabledSelection="#{frmParadas.seleccion}">
+            
+                <p:ajax update="tablaDatos  frmDetalle" listener="#{frmParadas.cambiarSeleccion()}" event="rowSelect"/>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id Parada"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.idParada}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Referencia"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.referencia}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Coordenadas"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.coordenadas}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Foto"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.foto}"/>
+                </p:column>
+            </p:dataTable>
+            
+            <h:commandButton id="btnNuevo" value="Nuevo" 
+                             actionListener="#{frmParadas.nuevoEstado()}"
+                             rendered="#{frmParadas.estado=='NONE'}"/>
+            
+            <h:commandButton id="btnCancelar" value="Cancelar" 
+                             actionListener="#{frmParadas.btnCancelar()}"
+                             rendered="#{frmParadas.estado!='NONE'}"/> 
+        </h:form>
+        
+        <h:form id="frmDetalle">
+            <p:panel id="formulario"
+                     rendered="#{frmParadas.estado=='EDITAR' or frmParadas.estado=='NUEVO'}">
+                
+                <p:panelGrid columns="2">
+
+                    <h:outputLabel for="id" value="Id Parada"/>
+                    <p:inputText id="id" value="#{frmParadas.registro.idParada}" label="idParada" readonly="false"/>
+
+                    <h:outputLabel for="referencia" value="Referencia"/>
+                    <p:inputText id="referencia" value="#{frmParadas.registro.referencia}" label="referencia"/>
+                    
+                    <h:outputLabel for="coordenadas" value="Coordenadas"/>
+                    <p:inputText id="coordenadas" value="#{frmParadas.registro.coordenadas}" label="coordenadas"/>
+                    
+                </p:panelGrid>
+        
+        <p:commandButton   value="Crear"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   resetValues="true"
+                                   rendered="#{frmParadas.botonAgregar}"
+                                   actionListener="#{frmParadas.guardar()}"/>
+
+                <p:commandButton   value="Editar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmParadas.botones}"
+                                   actionListener="#{frmParadas.editar()}"/>
+
+                <p:commandButton   value="Eliminar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmParadas.botones}"
+                                   actionListener="#{frmParadas.eliminar()}"/>
+            </p:panel>
+        </h:form>
+        
+    </h:body>
+</html>

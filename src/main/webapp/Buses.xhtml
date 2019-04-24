@@ -27,6 +27,8 @@
                          selection="#{frmBuses.registro}"
                          disabledSelection="#{frmBuses.seleccion}">
             
+                <p:ajax update="tablaDatos  frmDetalle" listener="#{frmBuses.cambiarSeleccion()}" event="rowSelect"/>
+            
             <p:column>
                     <f:facet name="header">
                         <h:outputText value="Placa Bus"/>
@@ -52,6 +54,53 @@
                     <h:outputText value="#{var.capacidad}"/>
                 </p:column>
             </p:dataTable>
+            <h:commandButton id="btnNuevo" value="Nuevo" 
+                             actionListener="#{frmBuses.nuevoEstado()}"
+                             rendered="#{frmBuses.estado=='NONE'}"/>
+            
+            <h:commandButton id="btnCancelar" value="Cancelar" 
+                             actionListener="#{frmBuses.btnCancelar()}"
+                             rendered="#{frmBuses.estado!='NONE'}"/> 
+        </h:form>
+        
+        <h:form id="frmDetalle">
+            <p:panel id="formulario"
+                     rendered="#{frmBuses.estado=='EDITAR' or frmBuses.estado=='NUEVO'}">
+                
+                <p:panelGrid columns="2">
+
+                    <h:outputLabel for="placa" value="Placa Bus"/>
+                    <p:inputText id="placa" value="#{frmBuses.registro.placaBus}" label="placa" readonly="false"/>
+
+                    <h:outputLabel for="marca" value="Marca"/>
+                    <p:inputText id="marca" value="#{frmBuses.registro.marca}" label="marca"/>
+                    
+                    <h:outputLabel for="color" value="Color"/>
+                    <p:inputText id="color" value="#{frmBuses.registro.color}" label="color"/>
+                    
+                    <h:outputLabel for="capacidad" value="Capacidad"/>
+                    <p:inputText id="capacidad" value="#{frmBuses.registro.capacidad}" label="capacidad"/>
+                </p:panelGrid>
+                
+                <p:commandButton   value="Crear"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   resetValues="true"
+                                   rendered="#{frmBuses.botonAgregar}"
+                                   actionListener="#{frmBuses.guardar()}"/>
+
+                <p:commandButton   value="Editar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmBuses.botones}"
+                                   actionListener="#{frmBuses.editar()}"/>
+
+                <p:commandButton   value="Eliminar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmBuses.botones}"
+                                   actionListener="#{frmBuses.eliminar()}"/>
+            </p:panel>
         </h:form>
     </h:body>
 

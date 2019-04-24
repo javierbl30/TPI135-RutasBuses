@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>Horarios</title>
+        </f:facet>
+    </h:head>
+    
+    <h:body>
+        <h:form id="tablaDatos">
+            <p:dataTable id="table"
+                         value="#{frmHorarios.lazymodel}" 
+                         var="var"
+                         lazy="true"
+                         paginator="true"
+                         rows="5"
+                         selectionMode="single"
+                         selection="#{frmHorarios.registro}"
+                         disabledSelection="#{frmHorarios.seleccion}">
+            
+                <p:ajax update="tablaDatos  frmDetalle" listener="#{frmHorarios.cambiarSeleccion()}" event="rowSelect"/>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id Ruta"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.rutas.idRuta}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Placa Bus"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.buses.placaBus}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Hora Salida"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.horaSalida}"/>
+                </p:column>
+            </p:dataTable>
+            
+            <h:commandButton id="btnNuevo" value="Nuevo" 
+                             actionListener="#{frmHorarios.nuevoEstado()}"
+                             rendered="#{frmHorarios.estado=='NONE'}"/>
+            
+            <h:commandButton id="btnCancelar" value="Cancelar" 
+                             actionListener="#{frmHorarios.btnCancelar()}"
+                             rendered="#{frmHorarios.estado!='NONE'}"/> 
+        </h:form>
+        
+        <h:form id="frmDetalle">
+            <p:panel id="formulario"
+                     rendered="#{frmHorarios.estado=='EDITAR' or frmHorarios.estado=='NUEVO'}">
+                
+                <p:panelGrid columns="2">
+
+                    <h:outputLabel for="id" value="Id Ruta"/>
+                    <p:inputText id="id" value="#{frmHorarios.registro.rutas.idRuta}" label="idRuta" readonly="false"/>
+
+                    <h:outputLabel for="placa" value="Placa Bus"/>
+                    <p:inputText id="placa" value="#{frmHorarios.registro.buses.placaBus}" label="placa"/>
+                    
+                    <h:outputLabel for="hora" value="Hora Salida"/>
+                    <p:inputText id="hora" value="#{frmHorarios.registro.horaSalida}" label="hora"/>
+                   
+                </p:panelGrid>
+                
+                <p:commandButton   value="Crear"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   resetValues="true"
+                                   rendered="#{frmHorarios.botonAgregar}"
+                                   actionListener="#{frmHorarios.guardar()}"/>
+
+                <p:commandButton   value="Editar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmHorarios.botones}"
+                                   actionListener="#{frmHorarios.editar()}"/>
+
+                <p:commandButton   value="Eliminar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmHorarios.botones}"
+                                   actionListener="#{frmHorarios.eliminar()}"/>
+            </p:panel>
+        </h:form>
+    </h:body>
+
+</html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>Rutas</title>
+        </f:facet>
+    </h:head>
+    
+    <h:body>
+        <h:form id="tablaDatos">
+            <p:dataTable id="table"
+                         value="#{frmRutas.lazymodel}" 
+                         var="var"
+                         lazy="true"
+                         paginator="true"
+                         rows="5"
+                         selectionMode="single"
+                         selection="#{frmRutas.registro}"
+                         disabledSelection="#{frmRutas.seleccion}">
+            
+                <p:ajax update="tablaDatos  frmDetalle" listener="#{frmRutas.cambiarSeleccion()}" event="rowSelect"/>
+    
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id Ruta"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.idRuta}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nombre Ruta"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.nombreRuta}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id Empresa"/>
+                    </f:facet>		
+                    <h:outputText value="#{var.idEmpresa}"/>
+                </p:column>
+            </p:dataTable>
+        
+        <h:commandButton id="btnNuevo" value="Nuevo" 
+                             actionListener="#{frmRutas.nuevoEstado()}"
+                             rendered="#{frmRutas.estado=='NONE'}"/>
+            
+            <h:commandButton id="btnCancelar" value="Cancelar" 
+                             actionListener="#{frmRutas.btnCancelar()}"
+                             rendered="#{frmRutas.estado!='NONE'}"/> 
+        </h:form>
+        
+        <h:form id="frmDetalle">
+            <p:panel id="formulario"
+                     rendered="#{frmRutas.estado=='EDITAR' or frmRutas.estado=='NUEVO'}">
+                
+                <p:panelGrid columns="2">
+
+                    <h:outputLabel for="id" value="Id Ruta"/>
+                    <p:inputText id="id" value="#{frmRutas.registro.idRuta}" label="idRuta" readonly="false"/>
+
+                    <h:outputLabel for="nombre" value="Nombre Ruta"/>
+                    <p:inputText id="nombre" value="#{frmRutas.registro.nombreRuta}" label="nombreRuta"/>
+                    
+                    <h:outputLabel for="idEmpresa" value="Id Empresa"/>
+                    <p:inputText id="idEmpresa" value="#{frmRutas.registro.idEmpresa}" label="idEmpresa"/>
+                    
+                </p:panelGrid>
+                
+                <p:commandButton   value="Crear"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   resetValues="true"
+                                   rendered="#{frmRutas.botonAgregar}"
+                                   actionListener="#{frmRutas.guardar()}"/>
+
+                <p:commandButton   value="Editar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmRutas.botones}"
+                                   actionListener="#{frmRutas.editar()}"/>
+
+                <p:commandButton   value="Eliminar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmRutas.botones}"
+                                   actionListener="#{frmRutas.eliminar()}"/>
+            </p:panel>
+        </h:form>
+        
+    </h:body>
+    
+</html>

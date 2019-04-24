@@ -16,6 +16,7 @@
     </h:head>
     
     <h:body>
+    <!--    <p:button outcome="index" value="Salir" style="width: 60px; height: 30px; font-size: 15px; margin: 8px"/>  -->
         
         <h:form id="tablaDatos">
             <p:dataTable id="table"
@@ -28,6 +29,8 @@
                          selection="#{frmEmpresas.registro}"
                          disabledSelection="#{frmEmpresas.seleccion}">
                
+                <p:ajax update="tablaDatos  frmDetalle" listener="#{frmEmpresas.cambiarSeleccion()}" event="rowSelect"/>
+ 
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="Id Empresa"/>
@@ -35,12 +38,57 @@
                     <h:outputText value="#{var.idEmpresa}"/>
                 </p:column>
                 <p:column>
-                    <f:facet name="encabezado">
+                    <f:facet name="header">
                         <h:outputText value="Nombre"/>
                     </f:facet>		
                     <h:outputText value="#{var.nombre}"/>
                 </p:column>
             </p:dataTable>
-            </h:form>
+            <h:commandButton id="btnNuevo" value="Nuevo" 
+                             actionListener="#{frmEmpresas.nuevoEstado()}"
+                             rendered="#{frmEmpresas.estado=='NONE'}"/>
+            
+            <h:commandButton id="btnCancelar" value="Cancelar" 
+                             actionListener="#{frmEmpresas.btnCancelar()}"
+                             rendered="#{frmEmpresas.estado!='NONE'}"/> 
+        </h:form>
+        
+        <h:form id="frmDetalle">
+            <p:panel id="formulario"
+                     rendered="#{frmEmpresas.estado=='EDITAR' or frmEmpresas.estado=='NUEVO'}">
+                
+        <p:panelGrid columns="2">
+
+                    <h:outputLabel for="id" value="Id Empresa"/>
+                    <p:inputText id="id" value="#{frmEmpresas.registro.idEmpresa}" label="id" readonly="true"/>
+
+                    <h:outputLabel for="nombre" value="Nombre"/>
+                    <p:inputText id="nombre" value="#{frmEmpresas.registro.nombre}" label="nombre"/>
+                    
+                </p:panelGrid>        
+        
+                <p:commandButton   value="Crear"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   resetValues="true"
+                                   rendered="#{frmEmpresas.botonAgregar}"
+                                   actionListener="#{frmEmpresas.guardar()}"/>
+
+                <p:commandButton   value="Editar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmEmpresas.botones}"
+                                   actionListener="#{frmEmpresas.editar()}"/>
+
+                <p:commandButton   value="Eliminar"
+                                   validateClient="true" ajax="true"
+                                   update=":tablaDatos frmDetalle:formulario "
+                                   rendered="#{frmEmpresas.botones}"
+                                   actionListener="#{frmEmpresas.eliminar()}"/>
+
+
+            </p:panel>
+        </h:form>
+                
     </h:body>
 </html>
