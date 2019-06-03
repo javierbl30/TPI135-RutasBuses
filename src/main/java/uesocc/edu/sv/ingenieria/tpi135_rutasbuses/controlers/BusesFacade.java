@@ -29,7 +29,7 @@ public class BusesFacade extends AbstractFacade<Buses>{
     protected EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 

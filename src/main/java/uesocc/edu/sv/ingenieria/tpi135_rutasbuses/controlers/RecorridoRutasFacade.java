@@ -24,7 +24,7 @@ public class RecorridoRutasFacade extends AbstractFacade<RecorridoRutas> {
     private EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 

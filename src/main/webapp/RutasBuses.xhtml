@@ -64,10 +64,24 @@
                 <p:panelGrid columns="2">
 
                     <h:outputLabel for="id" value="Id Ruta"/>
-                    <p:inputText id="id" value="#{frmRutasBuses.registro.rutas.idRuta}" label="idRuta" readonly="false"/>
+                    <h:selectOneMenu id="id" value="#{frmRutasBuses.idRutaSeleccionada}">
+                                <f:selectItem itemLabel="Seleccionar Ruta"/> 
+                                <f:selectItems value="#{frmRutasBuses.listaRutas}"
+                                               var="Item"
+                                               itemValue="#{Item.idRuta}"
+                                               itemLabel="#{Item.nombreRuta}"
+                                               />
+                    </h:selectOneMenu>
 
                     <h:outputLabel for="placa" value="Placa Bus"/>
-                    <p:inputText id="placa" value="#{frmRutasBuses.registro.buses.placaBus}" label="placa"/>
+                    <h:selectOneMenu id="placa" value="#{frmRutasBuses.placaSeleccionada}">
+                                <f:selectItem itemLabel="Seleccionar Unidad"/> 
+                                <f:selectItems value="#{frmRutasBuses.listaBuses}"
+                                               var="Item"
+                                               itemValue="#{Item.placaBus}"
+                                               itemLabel="#{Item.placaBus}"
+                                               />
+                    </h:selectOneMenu>
                     
                     <h:outputLabel for="costo" value="Costo"/>
                     <p:inputText id="costo" value="#{frmRutasBuses.registro.costo}" label="costo"/>

@@ -30,9 +30,9 @@
                 
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Id Ruta"/>
+                        <h:outputText value="Ruta"/>
                     </f:facet>		
-                    <h:outputText value="#{var.rutas.idRuta}"/>
+                    <h:outputText value="#{var.rutas.nombreRuta}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
@@ -64,10 +64,24 @@
                 <p:panelGrid columns="2">
 
                     <h:outputLabel for="id" value="Id Ruta"/>
-                    <p:inputText id="id" value="#{frmHorarios.registro.rutas.idRuta}" label="idRuta" readonly="false"/>
+                    <h:selectOneMenu id="idRuta" value="#{frmHorarios.idRutaSeleccionada}">
+                                <f:selectItem itemLabel="Seleccionar Ruta"/> 
+                                <f:selectItems value="#{frmHorarios.listaRutas}"
+                                               var="Item"
+                                               itemValue="#{Item.idRuta}"
+                                               itemLabel="#{Item.nombreRuta}"
+                                               />
+                    </h:selectOneMenu>
 
                     <h:outputLabel for="placa" value="Placa Bus"/>
-                    <p:inputText id="placa" value="#{frmHorarios.registro.buses.placaBus}" label="placa"/>
+                    <h:selectOneMenu id="placaBus" value="#{frmHorarios.placaSeleccionada}">
+                                <f:selectItem itemLabel="Seleccionar Bus"/> 
+                                <f:selectItems value="#{frmHorarios.listaBuses}"
+                                               var="Item"
+                                               itemValue="#{Item.placaBus}"
+                                               itemLabel="#{Item.placaBus}"
+                                               />
+                    </h:selectOneMenu>
                     
                     <h:outputLabel for="hora" value="Hora Salida"/>
                     <p:inputText id="hora" value="#{frmHorarios.registro.horaSalida}" label="hora"/>

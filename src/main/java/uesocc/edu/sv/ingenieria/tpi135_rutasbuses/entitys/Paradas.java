@@ -7,6 +7,7 @@ package uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -107,6 +108,7 @@ public class Paradas implements Serializable {
     }
 
     @XmlTransient
+    @JsonbTransient
     public List<RecorridoRutas> getRecorridoRutasList() {
         return recorridoRutasList;
     }

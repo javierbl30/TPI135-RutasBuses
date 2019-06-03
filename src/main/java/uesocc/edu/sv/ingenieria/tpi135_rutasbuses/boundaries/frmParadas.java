@@ -11,7 +11,6 @@ import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.controlers.AbstractFacade;
 import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.controlers.ParadasFacade;
 import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Buses;
 import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Paradas;
-import uesocc.edu.sv.ingenieria.tpi13_rutasbuses.boundary.abs.AbstractfrmDataModel;
 
 /**
  *

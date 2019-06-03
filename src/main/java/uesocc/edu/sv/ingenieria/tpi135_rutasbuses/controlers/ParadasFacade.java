@@ -27,7 +27,7 @@ public class ParadasFacade extends AbstractFacade<Paradas> {
     protected EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 

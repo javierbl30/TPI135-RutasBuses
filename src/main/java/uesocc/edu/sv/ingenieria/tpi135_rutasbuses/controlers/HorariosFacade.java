@@ -27,7 +27,7 @@ public class HorariosFacade extends AbstractFacade<Horarios>{
     protected EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 

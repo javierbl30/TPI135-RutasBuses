@@ -30,15 +30,15 @@
                 
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Id Ruta"/>
+                        <h:outputText value="Ruta"/>
                     </f:facet>		
-                    <h:outputText value="#{var.rutas.idRuta}"/>
+                    <h:outputText value="#{var.rutas.nombreRuta}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Id Parada"/>
+                        <h:outputText value="Parada"/>
                     </f:facet>		
-                    <h:outputText value="#{var.paradas.idParada}"/>
+                    <h:outputText value="#{var.paradas.referencia}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
@@ -50,7 +50,7 @@
                     <f:facet name="header">
                         <h:outputText value="Tiempo desde Parada Anterior"/>
                     </f:facet>		
-                    <h:outputText value="#{var.tiempoDesdeParadaAnterior}"/>
+                    <h:outputText value="#{var.tiempoDesdeParadaAnterior} minutos"/>
                 </p:column>
             </p:dataTable>
             <h:commandButton id="btnNuevo" value="Nuevo" 

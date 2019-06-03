@@ -7,6 +7,7 @@ package uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -78,6 +79,7 @@ public class Empresas implements Serializable {
     }
 
     @XmlTransient
+    @JsonbTransient
     public List<Rutas> getRutasList() {
         return rutasList;
     }

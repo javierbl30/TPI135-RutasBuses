@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -27,19 +28,19 @@ import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Horarios;
  * @author pedrojv
  */
 @RunWith(MockitoJUnitRunner.class)
-public class HorariosFacadeTest {
+@Ignore public class HorariosFacadeTest {
     
     @EJB
     HorariosFacade hrf = new HorariosFacade();
     /**
      * Test of horaSalidaBus method, of class HorariosFacade.
      */
-   /** @Test
+  /*  @Test
     public void testHoraSalidaBus() throws Exception {
         System.out.println("testHoraSalidaBus");
         EntityManager entitymanager = Mockito.mock(EntityManager.class);
         String exp="";
-        Assert.assertEquals(exp,hrf.horaSalidaBus("AB12-135"));
+        Assert.assertEquals(exp, hrf.horaSalidaBus("AB12-135"));
         Query query = Mockito.mock(Query.class);
         hrf.em = entitymanager;
         Assert.assertEquals(exp,hrf.horaSalidaBus(null));
@@ -49,7 +50,7 @@ public class HorariosFacadeTest {
         Mockito.when(query.getSingleResult()).thenReturn(new String("08:15:00.00000"));
         Assert.assertEquals(exp,hrf.horaSalidaBus("AB12-135"));
         
-    }
+    } */
 
     /**
      * Test of horaSalidaRuta method, of class HorariosFacade.

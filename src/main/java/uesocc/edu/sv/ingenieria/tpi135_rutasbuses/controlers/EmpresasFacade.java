@@ -23,7 +23,7 @@ public class EmpresasFacade extends AbstractFacade<Empresas>{
     private EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 

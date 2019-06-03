@@ -19,6 +19,8 @@ public interface AbstractFacadeInterface<T>{
     public void edit(T entity);
 
     public void remove(T entity);
+    
+    public T crear(T entity);
 
     public T find(Object id);
 

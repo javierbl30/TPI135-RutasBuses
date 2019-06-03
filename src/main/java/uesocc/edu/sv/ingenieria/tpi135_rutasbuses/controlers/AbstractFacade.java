@@ -29,7 +29,7 @@ public abstract class AbstractFacade<T> {
         this.entityClass = entityClass;
     }
 
-    protected abstract EntityManager getEntityManager();
+    public abstract EntityManager getEntityManager();
 
     public void create(T entity) {
        if (entity != null) {
@@ -41,7 +41,7 @@ public abstract class AbstractFacade<T> {
             }
         } else {
             throw new IllegalArgumentException("entity null");
-        }
+}
     }
     
     public void edit(T entity) {
@@ -69,7 +69,49 @@ public abstract class AbstractFacade<T> {
             throw new IllegalArgumentException("entity null");
         }
     }
-
+    
+    public T crear(T entity){
+       if (entity != null) {
+            EntityManager em = getEntityManager();
+            if (em != null) {
+                em.persist(entity);
+                return entity;
+            } else {
+                throw new IllegalStateException("em null");
+            }
+        } else {
+            throw new IllegalArgumentException("entity null");
+    }
+    }
+ 
+    public T editar(T entity){
+        if (entity != null) {
+            EntityManager em = getEntityManager();
+            if (em != null) {
+                em.merge(entity);
+                return entity;
+            } else {
+                throw new IllegalStateException("em null");
+            }
+        } else {
+            throw new IllegalArgumentException("entity null");
+        }
+    }
+    
+    public T borrar(T entity){
+        if(entity != null){
+            EntityManager em = getEntityManager();
+            if (em != null) {
+                em.remove(em.merge(entity));
+                return entity;
+            } else {
+                throw new IllegalStateException("em null");
+            }
+        }else{
+            throw new IllegalArgumentException("entity null");
+        }
+    }
+    
     public T find(Object id) {
      
         EntityManager em = getEntityManager();

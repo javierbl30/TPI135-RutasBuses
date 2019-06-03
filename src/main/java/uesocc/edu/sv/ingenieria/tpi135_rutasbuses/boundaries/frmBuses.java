@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.controlers.AbstractFacade;
 import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.controlers.BusesFacade;
 import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.entitys.Buses;
-import uesocc.edu.sv.ingenieria.tpi13_rutasbuses.boundary.abs.AbstractfrmDataModel;
 
 /**
  *

@@ -28,7 +28,7 @@ public class RutasBusesFacade extends AbstractFacade<RutasBuses> {
     protected EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 

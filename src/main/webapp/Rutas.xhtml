@@ -42,9 +42,9 @@
                 </p:column>
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Id Empresa"/>
+                        <h:outputText value="Empresa"/>
                     </f:facet>		
-                    <h:outputText value="#{var.idEmpresa}"/>
+                    <h:outputText value="#{var.idEmpresa.nombre}"/>
                 </p:column>
             </p:dataTable>
         
@@ -69,8 +69,15 @@
                     <h:outputLabel for="nombre" value="Nombre Ruta"/>
                     <p:inputText id="nombre" value="#{frmRutas.registro.nombreRuta}" label="nombreRuta"/>
                     
-                    <h:outputLabel for="idEmpresa" value="Id Empresa"/>
-                    <p:inputText id="idEmpresa" value="#{frmRutas.registro.idEmpresa}" label="idEmpresa"/>
+                    <h:outputLabel for="idEmpresa" value="Empresa"/>
+                    <h:selectOneMenu id="idEmpresa" value="#{frmRutas.idEmpresaSeleccionada}">
+                                <f:selectItem itemLabel="Seleccionar Empresa"/> 
+                                <f:selectItems value="#{frmRutas.listaEmpresas}"
+                                               var="Item"
+                                               itemValue="#{Item.idEmpresa}"
+                                               itemLabel="#{Item.nombre.toString()}"
+                                               />
+                    </h:selectOneMenu>
                     
                 </p:panelGrid>
                 
