@@ -29,9 +29,12 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(uesocc.edu.sv.ingenieria.tpi135_rutasbuses.services.rest.BusesResource.class);
         resources.add(uesocc.edu.sv.ingenieria.tpi135_rutasbuses.services.rest.CorsFilter.class);
         resources.add(uesocc.edu.sv.ingenieria.tpi135_rutasbuses.services.rest.EmpresasResource.class);
         resources.add(uesocc.edu.sv.ingenieria.tpi135_rutasbuses.services.rest.ParadasResource.class);
+        resources.add(uesocc.edu.sv.ingenieria.tpi135_rutasbuses.services.rest.RecorridoRutasResource.class);
+        resources.add(uesocc.edu.sv.ingenieria.tpi135_rutasbuses.services.rest.RutasResource.class);
     }
     
 }

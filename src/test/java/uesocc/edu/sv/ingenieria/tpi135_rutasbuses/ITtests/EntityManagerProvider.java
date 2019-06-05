@@ -12,44 +12,57 @@ import javax.persistence.Persistence;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+import org.mockito.internal.util.reflection.Whitebox;
+import uesocc.edu.sv.ingenieria.tpi135_rutasbuses.controlers.AbstractFacade;
 
 /**
  *
  * @author pedrojv
  */
 public class EntityManagerProvider implements TestRule {
-   
-    private EntityManager em;
-    private EntityTransaction tx;
     
-    private EntityManagerProvider(String unitName) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory(unitName);
-        this.em = emf.createEntityManager();
-        this.tx = em.getTransaction();
+    public static EntityManagerProvider emp;
+    private final EntityTransaction transaction;
+    private final EntityManager em;
+    private final AbstractFacade facade;
+
+    
+    private EntityManagerProvider(String unitName, AbstractFacade facade) {
+        this.facade = facade;
+        this.em = Persistence.createEntityManagerFactory(unitName).createEntityManager();
+        Whitebox.setInternalState(facade, "em", this.em);
+        this.transaction = this.em.getTransaction();
     }
-    public static EntityManagerProvider withUnit(String unitName) {
-        return new EntityManagerProvider(unitName);
+    
+    public static EntityManagerProvider getInstance(String unitName, AbstractFacade facade) {
+        return new EntityManagerProvider(unitName, facade);
     }
-    public void begin() {
-        this.tx.begin();
-    }
-    public void commit() {
-        this.tx.commit();
-    }
-    public EntityTransaction tx() {
-        return this.tx;
-    }
-    public EntityManager em() {
-        return this.em;
-    }
+    
     @Override
     public Statement apply(Statement base, Description description) {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                base.evaluate();
-                em.clear();
+                getEm().clear();
+                getEm().close();        
             }
         };
     }
+    
+   public static EntityManagerProvider getEmp() {
+        return emp;
+    }
+
+    public EntityTransaction getTransaction() {
+        return transaction;
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public AbstractFacade getFacade() {
+        return facade;
+    }
+    
 }
